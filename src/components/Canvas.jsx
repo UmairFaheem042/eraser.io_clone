@@ -253,7 +253,7 @@ const Canvas = () => {
       </div>
 
       {/* CANVAS */}
-      <div className="m-4 min-h-[89dvh]">
+      <div className="m-4 bg-black h-[89dvh]">
         <ReactSketchCanvas
           ref={canvasRef}
           style={styles}
