@@ -12,7 +12,7 @@ const Header = () => {
 
     let minutes = date.getMinutes();
     minutes = minutes < 10 ? `0${minutes}` : minutes;
-    
+
     let zone = "";
 
     zone = hours >= 12 ? "PM" : "AM";
@@ -50,10 +50,13 @@ const Header = () => {
         </div>
 
         {/* TIME */}
-        <div className="float-end px-4">
-          <div className="text-[rgba(255,255,255,0.5)] text-sm">
+        <div className="flex items-center gap-2 float-end px-4">
+          <span className="text-[rgba(255,255,255,0.5)] text-sm">
+            🧑‍💻Umair Faheem 
+          </span> 
+          <span className="text-[rgba(255,255,255,0.5)] text-sm">
             {currClock}
-          </div>
+          </span>
         </div>
         {/* <ul className="flex gap-6 text-xl text-gray-600">
           <li className="cursor-pointer hover:text-white">
