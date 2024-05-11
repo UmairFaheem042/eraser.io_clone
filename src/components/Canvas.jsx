@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ReactSketchCanvas } from "react-sketch-canvas";
 
 const Canvas = () => {
@@ -6,23 +6,24 @@ const Canvas = () => {
     strokeColor: "#ffffff",
   });
 
+  const [strokeColor, setStrokeColor] = useState("#FFFFFF");
   const [strokeWidth, setStrokeWidth] = useState(4);
+
+  const [canvasBG, setCanvasBG] = useState("transparent");
 
   const canvasRef = useRef();
 
-  const [canvasBG, setCanvasBG] = useState("transparent");
   const [cursorStyle, setCursorStyle] = useState("crosshair");
 
   const [selectedOption, setSelectedOption] = useState("pencil");
+
   const [EraserMode, setEraseMode] = useState(false);
 
   const styles = {
-    // border: "2px solid rgba(255,255,255,0.08)",
     border: "2px solid transparent",
     borderRadius: "0.25rem",
   };
 
-  // setCursorStyle(eraserIco);
   function handleSelectOption(val) {
     // console.log(val);
     switch (val) {
@@ -58,7 +59,6 @@ const Canvas = () => {
 
   const handlePenClick = () => {
     setEraseMode(false);
-    // canvasRef.current?.eraseMode(true);
     canvasRef.current?.eraseMode(false);
   };
 
@@ -80,11 +80,13 @@ const Canvas = () => {
     canvasRef.current?.clearCanvas();
   };
 
+
   return (
-    <div className={`flex-1 px-2 pb-2 cursor-${cursorStyle}`}>
-      <div className="absolute left-3 top-[50%] translate-y-[-50%] flex flex-col gap-2">
-        {/* <ul className=" flex flex-col gap-[0.7rem] rounded-md border border-[rgba(255,255,255,0.08)]">
-          <li
+    <div className={`flex-1 cursor-${cursorStyle}`}>
+      {/* CANVAS CONTROL */}
+      <div className="absolute left-4 top-[50%] translate-y-[-50%] flex flex-col gap-2">
+        <ul className=" flex flex-col rounded-md border border-[rgba(255,255,255,0.08)]">
+          {/* <li
             onClick={() => {
               handleSelectOption("add");
               setCursorStyle("crosshair");
@@ -96,11 +98,29 @@ const Canvas = () => {
             } p-2 cursor-pointer `}
           >
             <i className="ri-add-line text-xl  "></i>
-          </li>
-        </ul> */}
-        
-        <ul className="p-2 overflow-hidden flex items-center justify-center flex-col gap-[0.7rem] rounded-md border border-[rgba(255,255,255,0.08)]">
+          </li> */}
           <li
+            onClick={handleUndoClick}
+            className={`text-[rgba(255,255,255,0.5)] p-2 cursor-pointer`}
+          >
+            <i className="ri-arrow-go-back-line text-lg  "></i>
+          </li>
+          <li
+            onClick={handleRedoClick}
+            className={`text-[rgba(255,255,255,0.5)] p-2 cursor-pointer`}
+          >
+            <i className="ri-arrow-go-forward-line text-lg  "></i>
+          </li>
+          <li
+            onClick={handleClearClick}
+            className={`text-[rgba(255,255,255,0.5)] p-2 cursor-pointer`}
+          >
+            <i className="ri-loop-left-line text-lg  "></i>
+          </li>
+        </ul>
+
+        <ul className="p-2 overflow-hidden flex items-center justify-center flex-col gap-[0.7rem] rounded-md border border-[rgba(255,255,255,0.08)]">
+          {/* <li
             className={`rotate-[-90deg] cursor-pointer ${
               selectedOption === "pointer"
                 ? "text-white"
@@ -112,7 +132,7 @@ const Canvas = () => {
             }}
           >
             <i className=" ri-send-plane-line text-xl "></i>
-          </li>
+          </li> */}
           {/* <li
             onClick={() => {
               handleSelectOption("arrow");
@@ -170,7 +190,6 @@ const Canvas = () => {
             onClick={() => {
               handleSelectOption("eraser");
               setCursorStyle("crosshair");
-              // setCursorStyle(`url(${eraserIco})`);
               handleEraserClick();
             }}
             className={`${
@@ -197,39 +216,53 @@ const Canvas = () => {
         </ul>
       </div>
 
-      <div className=" flex justify-center w-screen gap-4">
-        <span className="cursor-pointer" onClick={handleUndoClick}>
-          <i className="ri-arrow-go-back-line"></i>
-        </span>
-        <span className="cursor-pointer" onClick={handleRedoClick}>
-          <i className="ri-arrow-go-forward-line"></i>
-        </span>
-        <span className="cursor-pointer" onClick={handleClearClick}>
-          <i className="ri-loop-left-line"></i>
-        </span>
+      
+
+      {/* STROKE */}
+      <div className="flex gap-5 absolute bottom-4 left-[50%] translate-x-[-50%]">
+        <div className="flex items-center gap-2">
+          <label
+            htmlFor=""
+            className="text-[.8rem] text-[rgba(255,255,255,0.5)]"
+          >
+            Stroke Width
+          </label>
+          <input
+            type="number"
+            min={1}
+            // max={10}
+            value={strokeWidth}
+            onChange={(e) => setStrokeWidth(e.target.value)}
+            className="w-[50px] outline-none bg-transparent appearance-none border px-1 py-1 rounded-md border-[rgba(255,255,255,0.08)]"
+          />
+        </div>
+        <div className="flex items-center gap-2">
+          <label
+            htmlFor=""
+            className="text-[.8rem] text-[rgba(255,255,255,0.5)]"
+          >
+            Stroke Color
+          </label>
+          <input
+            type="color"
+            className="w-[50px] outline-none bg-transparent appearance-none border p-2 rounded-md border-[rgba(255,255,255,0.08)]"
+            value={strokeColor}
+            onChange={(e) => setStrokeColor(e.target.value)}
+          />
+        </div>
       </div>
 
-      <div className="flex flex-col absolute bottom-5 left-[50%] translate-x-[-50%]">
-        <label htmlFor="" className="text-[.8rem] text-[rgba(255,255,255,0.5)]">
-          Stroke Width
-        </label>
-        <input
-          type="number"
-          min={1}
-          max={10}
-          value={strokeWidth}
-          onChange={(e) => setStrokeWidth(e.target.value)}
-          className="w-[74.5px] outline-none bg-transparent appearance-none border p-2 rounded-md border-[rgba(255,255,255,0.08)]"
+      {/* CANVAS */}
+      <div className="m-4 min-h-[89dvh]">
+        <ReactSketchCanvas
+          ref={canvasRef}
+          style={styles}
+          height="100%"
+          canvasColor={canvasBG}
+          strokeColor={strokeColor}
+          strokeWidth={strokeWidth}
         />
       </div>
-
-      <ReactSketchCanvas
-        ref={canvasRef}
-        style={styles}
-        canvasColor={canvasBG}
-        strokeColor={brushProp.strokeColor}
-        strokeWidth={strokeWidth}
-      />
     </div>
   );
 };

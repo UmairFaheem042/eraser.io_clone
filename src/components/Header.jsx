@@ -1,7 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Header = () => {
-  const [fileName, setFileName] = useState("untitled");
+  // const [fileName, setFileName] = useState("untitled");
+  const [currClock, setCurrClock] = useState("");
+
+  useEffect(() => {
+    const date = new Date();
+    let hours = date.getHours();
+    hours = hours > 12 ? hours - 12 : hours;
+    hours = hours < 10 ? `0${hours}` : hours;
+    let minutes = date.getMinutes();
+    let zone = "";
+
+    zone = hours >= 12 ? "PM" : "AM";
+
+    let time = `${hours} : ${minutes} : ${zone}`;
+
+    setCurrClock(time);
+  });
+
   return (
     <header className="sticky">
       <nav className="px-6 py-4 flex justify-between">
@@ -19,15 +36,22 @@ const Header = () => {
               d="M891.3,0L1646,0c38.8,0,62.8,55,42.7,98.2L1443,628.9c-9,19.5-25.2,31.4-42.7,31.4h-509V0z"
             ></path>
           </svg>
-          <input
+          {/* <input
             type="text"
             value={fileName}
             onChange={(e) => setFileName(e.target.value)}
             placeholder="Enter File Name"
             className="outline-none bg-[rgba(0,0,0,0)] border border-transparent focus:focus:border-[rgba(255,255,255,0.08)] w-auto font-thin text-md"
-          />
+          /> */}
+          <span>Eraser.io</span>
         </div>
 
+        {/* TIME */}
+        <div className="float-end px-4">
+          <div className="text-[rgba(255,255,255,0.5)] text-sm">
+            {currClock}
+          </div>
+        </div>
         {/* <ul className="flex gap-6 text-xl text-gray-600">
           <li className="cursor-pointer hover:text-white">
             <i className="ri-home-line "></i>
