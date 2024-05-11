@@ -80,9 +80,8 @@ const Canvas = () => {
     canvasRef.current?.clearCanvas();
   };
 
-
   return (
-    <div className={`flex-1 cursor-${cursorStyle}`}>
+    <div className={`flex-1 flex cursor-${cursorStyle}`}>
       {/* CANVAS CONTROL */}
       <div className="absolute left-4 top-[50%] translate-y-[-50%] flex flex-col gap-2">
         <ul className=" flex flex-col rounded-md border border-[rgba(255,255,255,0.08)]">
@@ -216,8 +215,6 @@ const Canvas = () => {
         </ul>
       </div>
 
-      
-
       {/* STROKE */}
       <div className="flex gap-5 absolute bottom-4 left-[50%] translate-x-[-50%]">
         <div className="flex items-center gap-2">
@@ -253,7 +250,7 @@ const Canvas = () => {
       </div>
 
       {/* CANVAS */}
-      <div className="m-4 h-[89dvh]">
+      <div className="mx-4 flex-1">
         <ReactSketchCanvas
           ref={canvasRef}
           style={styles}

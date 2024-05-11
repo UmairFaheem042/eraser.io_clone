@@ -23,7 +23,7 @@ const Header = () => {
   });
 
   return (
-    <header className="sticky">
+    <header className="sticky border-b-2 border-[rgba(255,255,255,0.08)]">
       <nav className="px-6 py-4 flex justify-between">
         <div className="flex gap-2">
           <svg
@@ -57,7 +57,7 @@ const Header = () => {
           <a
             href="https://github.com/UmairFaheem042/eraser.io_clone/"
             target="_blank"
-            className="text-[rgba(255,255,255,0.5)] text-sm"
+            className="text-[rgba(255,255,255,0.5)] text-sm [@media(max-width:350px)]:hidden"
           >
             <i className="ri-github-line"></i> Repo
           </a>
