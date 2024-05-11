@@ -6,16 +6,16 @@ const Header = () => {
 
   useEffect(() => {
     const date = new Date();
+    let zone = "";
+
     let hours = date.getHours();
+    zone = hours >= 12 ? "PM" : "AM";
     hours = hours > 12 ? hours - 12 : hours;
     hours = hours < 10 ? `0${hours}` : hours;
 
     let minutes = date.getMinutes();
     minutes = minutes < 10 ? `0${minutes}` : minutes;
 
-    let zone = "";
-
-    zone = hours >= 12 ? "PM" : "AM";
 
     let time = `${hours} : ${minutes} : ${zone}`;
 
