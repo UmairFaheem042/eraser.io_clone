@@ -50,13 +50,18 @@ const Header = () => {
         </div>
 
         {/* TIME */}
-        <div className="flex items-center gap-2 float-end px-4">
-          <span className="text-[rgba(255,255,255,0.5)] text-sm">
-            🧑‍💻Umair Faheem 
-          </span> 
-          <span className="text-[rgba(255,255,255,0.5)] text-sm">
+        <div className="flex items-center gap-4 float-end px-4">
+        <span className="text-[rgba(255,255,255,0.5)] text-sm">
             {currClock}
           </span>
+          <a
+            href="https://github.com/UmairFaheem042/eraser.io_clone/"
+            target="_blank"
+            className="text-[rgba(255,255,255,0.5)] text-sm"
+          >
+            <i className="ri-github-line"></i> Repo
+          </a>
+         
         </div>
         {/* <ul className="flex gap-6 text-xl text-gray-600">
           <li className="cursor-pointer hover:text-white">
